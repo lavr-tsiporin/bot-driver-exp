@@ -3,6 +3,9 @@ require('dotenv').config()
 
 //TELEGRAM
 const { Telegraf } = require('telegraf')
+//EXPRESS
+const express = require('express')
+const expressApp = express()
 
 //DATABASE
 const connect = require('./database')
@@ -11,6 +14,12 @@ const Driver = require('./models/driver')
 
 //Connect Telegram Bot
 const bot = new Telegraf(process.env.TELEGRAM_TOKEN)
+bot.telegram.setWebhook(`${process.env.EXPRESS_URL}${process.env.EXPRESS_CALLBACK}`)
+
+expressApp.use(bot.webhookCallback(process.env.EXPRESS_CALLBACK))
+
+expressApp.listen(process.env.PORT || 5000)
+
 //Message /start
 bot.start((ctx) => ctx.reply('Привет! Это частная собственность! 😇'))
 

@@ -10,8 +10,9 @@ async function allAsessor() {
   //   if (err) return handlerError(err)
   //   return handlerError(res)
   // })
-  let all = await Asessor.find({})
-  return all
+  await Asessor.find({}, (err, res) => {
+    console.log(res);
+  })
 }
 
 module.exports = allAsessor

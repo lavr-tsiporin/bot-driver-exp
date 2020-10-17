@@ -11,6 +11,9 @@ const expressApp = express()
 const connect = require('./database')
 const Asessor = require('./models/asessor')
 const Driver = require('./models/driver')
+//Telegramm command
+const allAsessors = require('./controllers/all-asessors')
+const deleteAsessor = require('./controllers/delete-asessor')
 
 //Connect Telegram Bot
 const bot = new Telegraf(process.env.TELEGRAM_TOKEN)
@@ -26,6 +29,9 @@ bot.start((ctx) => ctx.reply('Привет! Это частная собстве
 //bot.help((ctx) => ctx.reply('Send me a sticker'))
 bot.on('sticker', (ctx) => ctx.reply('👍'))
 //bot.hears('hi', (ctx) => ctx.reply('Hey there'))
+bot.command('all', ctx => {
+  sendMessage(process.env.CHAT_ADMIN, allAsessors())
+})
 
 //Launch Telegram Bot
 bot.launch()

@@ -30,7 +30,7 @@ bot.start((ctx) => ctx.reply('Привет! Это частная собстве
 bot.on('sticker', (ctx) => ctx.reply('👍'))
 //bot.hears('hi', (ctx) => ctx.reply('Hey there'))
 bot.command('all', ctx => {
-  sendMessage(process.env.CHAT_ADMIN, allAsessors())
+  bot.telegram.sendMessage(process.env.CHAT_ADMIN, allAsessors())
 })
 
 //Launch Telegram Bot

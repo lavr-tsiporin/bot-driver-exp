@@ -1,0 +1,21 @@
+{
+  "name": "telegrambot-check-driver-exp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon bot.js",
+    "create": "nodemon createDatabase.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "googleapis": "^61.0.0",
+    "mongoose": "^5.10.8",
+    "node-cron": "^2.0.3",
+    "nodemon": "^2.0.4",
+    "telegraf": "^3.38.0"
+  }
+}

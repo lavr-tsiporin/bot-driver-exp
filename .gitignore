@@ -1,0 +1,9 @@
+node_modules
+package-lock.json
+.DS_Store
+.env
+.idea
+.vscode
+1.json
+2.json
+with_comment

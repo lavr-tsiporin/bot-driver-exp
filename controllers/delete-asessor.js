@@ -1,9 +1,5 @@
-//CONFIG
-require('dotenv').config()
-//DATABASE
-const mongoose = require('mongoose')
 //Schema
-const Asessor = require('./models/asessor')
+const Asessor = require('../models/asessor')
 
 const handlerError = msg => {
   return `Error ${msg}`

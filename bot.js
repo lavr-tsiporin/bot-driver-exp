@@ -13,7 +13,6 @@ const Asessor = require('./models/asessor')
 const Driver = require('./models/driver')
 //Telegramm command
 const allAsessors = require('./controllers/all-asessors')
-const deleteAsessor = require('./controllers/delete-asessor')
 
 //Connect Telegram Bot
 const bot = new Telegraf(process.env.TELEGRAM_TOKEN)

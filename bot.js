@@ -13,6 +13,7 @@ const Asessor = require('./models/asessor')
 const Driver = require('./models/driver')
 //Telegramm command
 const allAsessors = require('./controllers/all-asessors')
+const deleteAsessor = require('./controllers/delete-asessor')
 
 //Connect Telegram Bot
 const bot = new Telegraf(process.env.TELEGRAM_TOKEN)
@@ -28,9 +29,15 @@ bot.start((ctx) => ctx.reply('Привет! Это частная собстве
 //bot.help((ctx) => ctx.reply('Send me a sticker'))
 bot.on('sticker', (ctx) => ctx.reply('👍'))
 //bot.hears('hi', (ctx) => ctx.reply('Hey there'))
-bot.command('all', ctx => {
-  bot.telegram.sendMessage(process.env.CHAT_ADMIN, allAsessors())
+
+//Command
+bot.command('all', async ctx => {
+  bot.telegram.sendMessage(process.env.CHAT_ADMIN, await allAsessors(), { parse_mode: 'MarkdownV2' })
 })
+// bot.command('delete', async ctx => {
+//   let msg = ctx.message.text.split('@').splice(1)
+//   bot.telegram.sendMessage(process.env.CHAT_ADMIN, await deleteAsessor(msg), { parse_mode: 'MarkdownV2' })
+// })
 
 //Launch Telegram Bot
 bot.launch()
@@ -171,6 +178,7 @@ bot.on('message', async ctx => {
       })
     }
   } else {
+    bot.telegram.sendMessage(ctx.message.from.id, `⭕ Ожидайте ответа. В скором времени Вас добавят в систему ⭕`)
     regNewAsessor(ctx.message.from)
   }
 })

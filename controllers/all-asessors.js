@@ -1,18 +1,25 @@
 //Schema
 const Asessor = require('../models/asessor')
 
-const handlerError = msg => {
-  return `Error ${msg}`
+const handlerMsg = arr => {
+  console.log('arr all', arr);
+  let str = `*Список всех асессоров:* \n`
+  arr.forEach((item, index) => {
+    return str += `${index + 1} \`@${item} \` \n`
+  })
+  return str
 }
 
 async function allAsessor() {
-  // return await Asessor.find({}, async (err, res) => {
-  //   if (err) return handlerError(err)
-  //   return handlerError(res)
-  // })
+  let allAsessor = []
+
   await Asessor.find({}, (err, res) => {
-    console.log(res);
+    if (err) allAsessor.push('Ошибка при составлении списка асессоров')
+    res.forEach(i => {
+      allAsessor.push(i.username)
+    })
   })
+  return handlerMsg(allAsessor)
 }
 
 module.exports = allAsessor

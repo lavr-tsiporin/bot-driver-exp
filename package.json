@@ -4,8 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon bot.js",
-    "create": "nodemon createDatabase.js"
+    "start": "nodemon bot.js"
   },
   "keywords": [],
   "author": "",

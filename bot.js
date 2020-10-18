@@ -32,12 +32,38 @@ bot.on('sticker', (ctx) => ctx.reply('👍'))
 
 //Command
 bot.command('all', async ctx => {
-  bot.telegram.sendMessage(process.env.CHAT_ADMIN, await allAsessors(), { parse_mode: 'MarkdownV2' })
+  let asessor = await Asessor.find({
+    idChatAsessor: ctx.message.from.id
+  })
+  if (asessor.length > 0) {
+    ctx.deleteMessage()
+    ctx.message.from.id !== +process.env.CHAT_ADMIN
+      ? bot.telegram.sendMessage(ctx.message.from.id, `Отказано`)
+      : bot.telegram.sendMessage(process.env.CHAT_ADMIN, await allAsessors(), { parse_mode: 'MarkdownV2' })
+  } else {
+    ctx.deleteMessage()
+    bot.telegram.sendMessage(ctx.message.from.id, `⭕ Ожидайте ответа. В скором времени Вас добавят в систему ⭕`)
+    regNewAsessor(ctx.message.from)
+  }
 })
-// bot.command('delete', async ctx => {
-//   let msg = ctx.message.text.split('@').splice(1)
-//   bot.telegram.sendMessage(process.env.CHAT_ADMIN, await deleteAsessor(msg), { parse_mode: 'MarkdownV2' })
-// })
+bot.command('delete', async ctx => {
+  let asessor = await Asessor.find({
+    idChatAsessor: ctx.message.from.id
+  })
+  if (asessor.length > 0) {
+    if (ctx.message.from.id !== +process.env.CHAT_ADMIN) {
+      bot.telegram.sendMessage(ctx.message.from.id, `Отказано`)
+    } else {
+      let msg = ctx.message.text.split('@').splice(1).map(i => i.trim())
+      ctx.deleteMessage()
+      bot.telegram.sendMessage(process.env.CHAT_ADMIN, await deleteAsessor(msg), { parse_mode: 'MarkdownV2' })
+    }
+  } else {
+    ctx.deleteMessage()
+    bot.telegram.sendMessage(ctx.message.from.id, `⭕ Ожидайте ответа. В скором времени Вас добавят в систему ⭕`)
+    regNewAsessor(ctx.message.from)
+  }
+})
 
 //Launch Telegram Bot
 bot.launch()
